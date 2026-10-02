@@ -13,8 +13,8 @@
       <VBox fx:id="dkVboxcent" alignment="CENTER" prefHeight="237.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="dkImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="dkLabel" text="Label" />
-            <Text fx:id="dkInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Label fx:id="dkLabel" prefHeight="62.0" prefWidth="193.0" text="Label" />
+            <Text fx:id="dkInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="197.33660531044006" />
          </children>
       </VBox>
    </center>

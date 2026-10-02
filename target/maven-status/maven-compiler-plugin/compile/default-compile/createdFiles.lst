@@ -1,8 +1,8 @@
 com\project\Game.class
 com\project\ControllerMobile.class
 com\project\Main.class
+com\project\ControllerDesktop.class
+com\project\Character.class
 com\project\Console.class
 com\project\UtilsViews.class
-com\project\ControllerDesktop.class
 com\project\ControllerListItem.class
-com\project\Character.class
