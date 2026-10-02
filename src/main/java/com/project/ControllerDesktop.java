@@ -1,5 +1,14 @@
 package com.project;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -53,6 +62,18 @@ public class ControllerDesktop {
             carregarLlista(actual);
 
         });
+
+        dkListView.getSelectionModel().selectedItemProperty().addListener((obs, anterior, actual) -> { //Listener de el listview
+            if (actual != null) { //Actualizamos la informacion si tenemos algo seleccionado
+                dkLabel.setText(actual);
+                dkInfo.setText("Informacion de: " + actual);
+            }
+
+            }
+        );
+
+        cargarGames();
+        System.out.println(games.size());
     }
 
 
@@ -84,7 +105,38 @@ public class ControllerDesktop {
 
     }
 
-}
+    }
+
+    private List<Game> games = new ArrayList<>();
+    private void cargarGames() { //Esta funcion sirve para leer los archivos .json y guardarlos en un array
+
+    try {
+
+        String contenido = Files.readString(
+            Paths.get("assets/games.json")
+        );
+
+        JSONArray array = new JSONArray(contenido);
+
+        for (int i = 0; i < array.length(); i++) {
+
+            JSONObject objeto = array.getJSONObject(i);
+
+            Game game = new Game(
+                objeto.getString("name"),
+                objeto.getInt("year"),
+                objeto.getString("type"),
+                objeto.getString("plot"),
+                objeto.getString("image")
+            );
+
+            games.add(game);
+        }
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
 
 
 }
