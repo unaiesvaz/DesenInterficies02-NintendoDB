@@ -53,7 +53,6 @@ public class ControllerDesktop {
         cargarGames();
         cargarCharacters();
         cargarConsoles();
-        dkTitle.setText("NintendoDB");
 
         dkComboBox.getItems().addAll(
             "Jocs",
@@ -66,6 +65,10 @@ public class ControllerDesktop {
         carregarLlista("Jocs");
 
         dkComboBox.valueProperty().addListener((obs, anterior, actual) -> { //Agregamos un listener al combobox
+
+            dkLabel.setText(""); //Estas lineas son para que al cambiar entre categorias, se borre la info 
+            dkInfo.setText("");
+            dkImage.setImage(null);
 
             carregarLlista(actual);
 
