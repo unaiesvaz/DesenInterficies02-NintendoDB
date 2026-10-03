@@ -1,36 +1,62 @@
 package com.project;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+public class Main extends Application {
 
-public class Main extends Application { // .\run.ps1 com.project.Main
-
-    private static Stage stage;
+    private Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
 
+        this.stage = stage;
+
         FXMLLoader fxmlLoader = new FXMLLoader(
-                Main.class.getResource("/assets/viewDesktop.fxml")
+            Main.class.getResource("/assets/ViewDesktop.fxml")
         );
 
         Scene scene = new Scene(fxmlLoader.load());
 
-        stage.setTitle("Nintendo DB");
+        stage.setTitle("NintendoDB");
+
+        // Tamaño inicial de la ventana
+        stage.setWidth(900);
+        stage.setHeight(600);
+
         stage.setScene(scene);
         stage.show();
+
+        // Detectamos cambios de anchura
+        scene.widthProperty().addListener((obs, anterior, actual) -> { //Listener a la propiedad de la anchura
+
+            if (actual.doubleValue() < 700) { // Esta parte controla que depende del tamaño de la ventana cambie entre las vistas
+                cambiarVista("ViewMobile.fxml");
+            } else {
+                cambiarVista("ViewDesktop.fxml");
+            }
+        });
     }
 
-    public static void cambiarVista(String fxml) throws IOException { //Metodo para alternar entre FXMLs
-        Parent root = FXMLLoader.load(Main.class.getResource("/assets/" + fxml) );
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+
+    private void cambiarVista(String fxml) { //Funcion para cambiar la vista
+
+        try {
+            Parent root = FXMLLoader.load(
+                Main.class.getResource("/assets/" + fxml)
+            );
+            stage.getScene().setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
 
     public static void main(String[] args) {
         launch();
